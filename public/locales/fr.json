@@ -1,0 +1,415 @@
+{
+  "pages": {
+    "login": {
+      "title": "Connectez-vous à votre compte",
+      "signin": "Se connecter",
+      "signup": "S'inscrire",
+      "divider": "ou",
+      "fields": {
+        "email": "Email",
+        "password": "Mot de passe"
+      },
+      "errors": {
+        "validEmail": "Adresse e-mail invalide"
+      },
+      "buttons": {
+        "submit": "Connexion",
+        "forgotPassword": "Mot de passe oublié ?",
+        "noAccount": "Vous n'avez pas de compte ?",
+        "rememberMe": "Se souvenir de moi"
+      }
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié ?",
+      "fields": {
+        "email": "Email"
+      },
+      "errors": {
+        "validEmail": "Adresse e-mail invalide"
+      },
+      "buttons": {
+        "submit": "Envoyer les instructions de réinitialisation"
+      }
+    },
+    "register": {
+      "title": "Inscrivez-vous à votre compte",
+      "fields": {
+        "email": "Email",
+        "password": "Mot de passe"
+      },
+      "errors": {
+        "validEmail": "Adresse e-mail invalide"
+      },
+      "buttons": {
+        "submit": "S'inscrire",
+        "haveAccount": "Vous avez un compte ?"
+      }
+    },
+    "updatePassword": {
+      "title": "Mettre à jour le mot de passe",
+      "fields": {
+        "password": "Nouveau mot de passe",
+        "confirmPassword": "Confirmer le nouveau mot de passe"
+      },
+      "errors": {
+        "confirmPasswordNotMatch": "Les mots de passe ne correspondent pas"
+      },
+      "buttons": {
+        "submit": "Mettre à jour"
+      }
+    },
+    "error": {
+      "info": "Vous avez peut-être oublié d'ajouter le composant {{action}} à la ressource {{resource}}.",
+      "404": "Désolé, la page que vous avez visitée n'existe pas.",
+      "resource404": "Êtes-vous sûr d'avoir créé la ressource {{resource}} ?",
+      "backHome": "Retour à l'accueil"
+    }
+  },
+  "actions": {
+    "list": "Liste",
+    "create": "Créer",
+    "edit": "Modifier",
+    "show": "Afficher",
+    "delete": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "buttons": {
+    "add": "Ajouter",
+    "create": "Créer",
+    "save": "Enregistrer",
+    "logout": "Se déconnecter",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "cancel": "Annuler",
+    "confirm": "Êtes-vous sûr ?",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "refresh": "Actualiser",
+    "show": "Afficher",
+    "undo": "Annuler",
+    "import": "Importer",
+    "export": "Exporter",
+    "clone": "Cloner",
+    "accept": "Accepter",
+    "acceptAll": "Tout accepter",
+    "reject": "Rejeter",
+    "rejectAll": "Tout rejeter",
+    "nextStep": "Suivant",
+    "previousStep": "Précédent"
+  },
+  "loading": "Chargement",
+  "tags": {
+    "clone": "Cloner"
+  },
+  "table": {
+    "actions": "Actions",
+    "inTotal": "au total"
+  },
+  "search": {
+    "placeholder": "Rechercher par ID de magasin, e-mail, mot-clé",
+    "more": "plus"
+  },
+  "status": {
+    "enable": "Activer",
+    "disable": "Désactiver"
+  },
+  "warnWhenUnsavedChanges": "Êtes-vous sûr de vouloir partir ? Vous avez des modifications non enregistrées.",
+  "notifications": {
+    "success": "Succès",
+    "error": "Erreur (code de statut : {{statusCode}})",
+    "undoable": "Vous avez {{seconds}} secondes pour annuler",
+    "createSuccess": "{{resource}} créé avec succès",
+    "createError": "Erreur lors de la création de {{resource}} (code de statut : {{statusCode}})",
+    "deleteSuccess": "{{resource}} supprimé avec succès",
+    "deleteError": "Erreur lors de la suppression de {{resource}} (code de statut : {{statusCode}})",
+    "editSuccess": "{{resource}} modifié avec succès",
+    "editError": "Erreur lors de la modification de {{resource}} (code de statut : {{statusCode}})",
+    "importProgress": "Importation : {{processed}}/{{total}}"
+  },
+  "categories": {
+    "categories": "Catégories",
+    "titles": {
+      "list": "Catégories"
+    },
+    "fields": {
+      "id": "ID",
+      "title": "Titre",
+      "products": "Produits",
+      "isActive": {
+        "label": "Statut",
+        "true": "Visible",
+        "false": "Invisible"
+      }
+    }
+  },
+  "expenses": {
+    "expenses": "Transaction",
+    "titles": {
+      "list": "Transaction",
+      "create": "Ajouter une transaction",
+      "edit": "Edit transaction"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "isActive": {
+        "label": "Status",
+        "true": "Available",
+        "false": "Unavailable"
+      },
+      "price": "Price",
+      "category": "Category",
+      "images": {
+        "label": "Images",
+        "description": "Upload Image",
+        "validation": "must be 1080x1080 px"
+      },
+      "createdAt": "CreatedAt"
+    },
+    "filter": {
+      "title": "Filters",
+      "allCategories": {
+        "label": "All Categories",
+        "placeholder": "All Categories"
+      },
+      "id": {
+        "label": "ID",
+        "placeholder": "Search ID"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Search Description"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Search Category"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "isActive": {
+        "label": "Status",
+        "placeholder": "Select Status",
+        "true": "Available",
+        "false": "Unavailable"
+      }
+    },
+    "actions": {
+      "add": "Add new product",
+      "edit": "Edit product"
+    }
+  },
+  "couriers": {
+    "couriers": "Coursiers",
+    "titles": {
+      "create": "Créer un coursier",
+      "list": "Coursiers",
+      "edit": "Modifier le coursier"
+    },
+    "fields": {
+      "id": "ID",
+      "avatar": {
+        "label": "Avatar",
+        "description": "Cliquez ou faites glisser l'image de l'avatar dans cette zone pour la télécharger."
+      },
+      "name": {
+        "label": "Nom",
+        "placeholder": "Veuillez entrer le nom du coursier"
+      },
+      "surname": {
+        "label": "Prénom",
+        "placeholder": "Veuillez entrer le prénom du coursier"
+      },
+      "gender": {
+        "label": "Sexe",
+        "male": "Homme",
+        "female": "Femme"
+      },
+      "gsm": {
+        "label": "Téléphone",
+        "placeholder": "Veuillez entrer le téléphone du coursier"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Veuillez entrer l'email du coursier"
+      },
+      "address": {
+        "label": "Adresse",
+        "placeholder": "Veuillez entrer l'adresse du coursier"
+      },
+      "createdAt": "Créé le",
+      "status": {
+        "label": "Statut",
+        "Available": "Disponible",
+        "Offline": "Hors ligne",
+        "On delivery": "En livraison"
+      },
+      "vehicleType": {
+        "label": "Type de véhicule",
+        "placeholder": "Veuillez entrer le type de véhicule"
+      },
+      "licensePlate": {
+        "label": "ID du véhicule",
+        "placeholder": "Veuillez entrer l'ID du véhicule",
+        "patternMessage": "Veuillez entrer un ID de véhicule valide. Exemple : ABC 123"
+      },
+      "rating": {
+        "label": "Évaluation",
+        "placeholder": "Veuillez entrer l'évaluation"
+      },
+      "images": {
+        "label": "Images",
+        "description": "Ajouter une photo de l'utilisateur",
+        "validation": "doit être de 480x480 px"
+      },
+      "store": {
+        "label": "Magasin",
+        "placeholder": "Sélectionner le magasin"
+      },
+      "vehicle": {
+        "label": "Véhicule",
+        "placeholder": "Sélectionner le véhicule"
+      },
+      "accountNumber": {
+        "label": "N° de compte",
+        "placeholder": "Veuillez entrer le n° de compte"
+      }
+    },
+    "filter": {
+      "title": "Filtres",
+      "name": {
+        "label": "Nom",
+        "placeholder": "Rechercher un nom"
+      },
+      "licensePlate": {
+        "label": "Nom",
+        "placeholder": "Rechercher un nom"
+      },
+      "gsm": {
+        "label": "Téléphone",
+        "placeholder": "Rechercher un téléphone"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Rechercher un email"
+      },
+      "submit": "Filtrer"
+    },
+    "steps": {
+      "personal": "Personnel",
+      "company": "Entreprise",
+      "vehicle": "Véhicule"
+    },
+    "actions": {
+      "add": "Ajouter un nouveau coursier",
+      "edit": "Modifier le coursier"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "overview": {
+      "title": "Vue d'ensemble"
+    },
+    "filter": {
+      "title": "Filtres",
+      "date": {
+        "lastWeek": "La semaine dernière",
+        "lastMonth": "Le mois dernier",
+        "lastYear": "L'année dernière"
+      }
+    },
+    "deliveryMap": {
+      "title": "Carte des livraisons"
+    },
+    "orders": {
+      "title": "Commandes"
+    },
+    "revenue": {
+      "title": "Revenus"
+    },
+    "totalSales": {
+      "title": "Ventes totales"
+    },
+    "dailyRevenue": {
+      "title": "Revenus quotidiens"
+    },
+    "dailyOrders": {
+      "title": "Commandes quotidiennes"
+    }
+  },
+  "users": {
+    "users": "Utilisateurs",
+    "titles": {
+      "edit": "Modifier l'utilisateur",
+      "list": "Utilisateurs",
+      "show": "Customer Detail"
+    },
+    "fields": {
+      "id": "ID",
+      "avatar": {
+        "label": "Avatar",
+        "description": "Click or drag avatar image to this area to upload."
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "name": "Name",
+      "gender": {
+        "label": "Gender",
+        "Male": "Male",
+        "Female": "Female"
+      },
+      "gsm": "Gsm No",
+      "createdAt": "Created At",
+      "addresses": "Addresses",
+      "isActive": {
+        "label": "Status",
+        "true": "Active",
+        "false": "Idle"
+      }
+    },
+    "filter": {
+      "title": "Filters",
+      "id": {
+        "label": "ID",
+        "placeholder": "Search ID"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "gsm": {
+        "label": "Gsm",
+        "placeholder": "Search Gsm"
+      },
+      "search": {
+        "label": "Search",
+        "placeholder": "FirstName, lastName, gsm, etc."
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "gender": {
+        "label": "Gender",
+        "placeholder": "Gender",
+        "male": "Male",
+        "female": "Female"
+      },
+      "isActive": {
+        "label": "Active",
+        "placeholder": "Select Status",
+        "true": "Yes",
+        "false": "No"
+      },
+      "submit": "Filter"
+    },
+    "addresses": {
+      "addresses": "Addresses",
+      "address": "Address"
+    }
+  }
+}
