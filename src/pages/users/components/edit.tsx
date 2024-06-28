@@ -26,30 +26,20 @@ export const EditUser: React.FC<EditUserProps> = ({ open, setOpen, user }) => {
         setCurrent(user);
     }, [user]);
 
-    const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
-    const handleCheck = (item: string) => {
 
-        setCheckedItems((prev) => {
-            if (prev == undefined) {
-                return [item]
-            }
-            return prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-        }
-        );
-    };
 
     useEffect(() => {
 
         if (current) {
 
-            setCheckedItems(JSON.parse(current.permissions))
-
             form.setFieldsValue({
-                service_id: current.service_id,
-                role: current.role,
-                name: current.name,
+                centre_id: current.centre_id,
+                fonction: current.fonction,
+                nom: current.nom,
+                prenom: current.prenom,
                 email: current.email,
+                telephone: current.telephone,
             });
         }
     }, [current, form]);
@@ -63,7 +53,7 @@ export const EditUser: React.FC<EditUserProps> = ({ open, setOpen, user }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
                 },
-                body: JSON.stringify({ ...values, permissions: checkedItems })
+                body: JSON.stringify({ ...values })
             },
 
         )
@@ -75,8 +65,7 @@ export const EditUser: React.FC<EditUserProps> = ({ open, setOpen, user }) => {
                 {
                     resource: "users",
                     values: {
-                        name: res.name,
-                        description: res.email
+                        nom: res.nom,
                     },
                     id: res!.id,
                 },
@@ -92,63 +81,106 @@ export const EditUser: React.FC<EditUserProps> = ({ open, setOpen, user }) => {
 
     return (
         <Drawer open={open} onClose={() => { setOpen(false) }}>
-            <Form form={form} onFinish={handleSubmit} layout='vertical'>
-                <Form.Item name="name" label="Nom" >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item name="email" label="Email" >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="service_id"
-                    label="Service"
-                >
-                    <Select {...selectProps} />
-                </Form.Item>
-                <Form.Item
-                    name="role"
-                    label="Role"
-                >
-                    <Select options={userRoles} />
-                </Form.Item>
-                <label htmlFor="">Permissions</label>
-
-                <Row gutter={[16, 16]} style={{ marginBottom: "20px" }}>
-                    {[
-                        'USER_READ',
-                        'USER_WRITE',
-                        'SERVICE_READ',
-                        'SERVICE_WRITE',
-                        'CATEGORY_READ',
-                        'CATEGORY_WRITE',
-                        'EXPENSE_READ',
-                        'EXPENSE_WRITE'
-                    ].map((item) => (
-                        <Col key={item} span={12}>
-
-                            <div onClick={() => handleCheck(item)} style={{ cursor: "pointer" }} >
-                                <Badge key={item} count={item.replaceAll("_", " ")} color={checkedItems?.includes(item) ? "green" : "gray"}>
-
-                                </Badge>
-                            </div>
-                        </Col>
-                    ))}
+            <Form form={form} onFinish={handleSubmit} layout="vertical" hideRequiredMark>
+                <Row gutter={24}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="nom"
+                            label="Nom"
+                            rules={[{ required: true, message: 'Ce champ est requis' }]}
+                        >
+                            <Input placeholder="Entrer le nom" />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={24}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="prenom"
+                            label="Prenom"
+                            rules={[{ required: true, message: 'Ce champ est requis' }]}
+                        >
+                            <Input placeholder="Entrer le prenom" />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={24}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="centre_id"
+                            label="Centre"
+                        >
+                            <Select {...selectProps} />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="email"
+                            label="Email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Ce champ est requis',
+                                },
+                            ]}
+                        >
+                            <Input autoComplete="off" placeholder="Saisir l'email" />
+                        </Form.Item>
+                    </Col>
                 </Row>
 
-                <Space>
-                    <Button
-                        onClick={() => {
-                            form.resetFields()
-                            setOpen(false)
-                        }}
-                    >Annuler</Button>
-                    <Button type="primary" htmlType="submit">
-                        Enregistrer les modifications
-                    </Button>
-                </Space>
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="telephone"
+                            label="Telephone"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Ce champ est requis',
+                                },
+                            ]}
+                        >
+                            <Input autoComplete="off" placeholder="Saisir le numero de telephone" />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="password"
+                            label="Password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Ce champ est requis',
+                                },
+                            ]}
+                        >
+                            <Input autoComplete="off" placeholder="Saisir le mot de passe" type="password" />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Form.Item
+                            name="fonction"
+                            label="Fonction"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Ce champ est requis',
+                                },
+                            ]}
+                        >
+                            <Select options={userRoles} defaultValue={"STAFF"} />
+                        </Form.Item>
+                    </Col>
+                </Row>
             </Form>
         </Drawer>
     )

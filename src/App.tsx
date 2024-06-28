@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Authenticated, Refine } from "@refinedev/core";
 import { RefineKbarProvider } from "@refinedev/kbar";
 import {
-  useNotificationProvider,
   ThemedLayoutV2,
   ErrorComponent,
 } from "@refinedev/antd";
@@ -14,41 +13,25 @@ import routerProvider, {
 } from "@refinedev/react-router-v6";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import {
-  ShoppingOutlined,
   ApartmentOutlined,
   DashboardOutlined,
   UserOutlined,
   UnorderedListOutlined,
   TagsOutlined,
 } from "@ant-design/icons";
-import jsonServerDataProvider from "@refinedev/simple-rest";
 import "dayjs/locale/de";
 import { DashboardPage } from "./pages/dashboard";
-import { OrderList, OrderShow } from "./pages/orders";
 import { AuthPage } from "./pages/auth";
-import { CustomerShow, CustomerList } from "./pages/customers";
-import { CourierList, CourierCreate, CourierEdit } from "./pages/couriers";
-import {
-  ProductList,
-  ProductCreate,
-  ProductEdit,
-  ProductShow,
-} from "./pages/expenses";
-import { StoreCreate, StoreEdit, StoreList } from "./pages/stores";
-import { CategoryList } from "./pages/categories";
 import { useTranslation } from "react-i18next";
 import { Header, Title } from "./components";
-import { BikeWhiteIcon } from "./components/icons";
 import { ConfigProvider } from "./context";
-import { useAutoLoginForDemo } from "./hooks";
 import "@refinedev/antd/dist/reset.css";
 import { dataProvider } from "./providers/data/data-provider";
-import { TOKEN_KEY, authProvider } from "./providers/auth/authProvider";
-import { ServiceList } from "./pages/services";
+import { authProvider } from "./providers/auth/authProvider";
 import { UserList } from "./pages/users";
-import { PERMISSION_TOKEN } from "./providers";
-import { PermissionsItems } from "./interfaces/type";
-import { Skeleton } from "antd";
+import { ActeList } from "./pages/actes";
+import { FormationList } from "./pages/formations";
+import { CentreList } from "./pages/centres";
 
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -59,18 +42,7 @@ const App: React.FC = () => {
     getLocale: () => i18n.language,
   };
 
-  const [permissions, setPermissions] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const storedPermissions = localStorage.getItem(PERMISSION_TOKEN);
-
-    if (storedPermissions) {
-      setPermissions(JSON.parse(storedPermissions));
-    }
-
-    setLoading(false);
-  }, []);
 
   const resources = [
     {
@@ -82,29 +54,24 @@ const App: React.FC = () => {
       },
     },
     {
-      name: "expenses",
-      list: "/expenses",
-      create: "/expenses/new",
-      edit: "/expenses/:id/edit",
-      show: "/expenses/:id",
+      name: "actes",
+      list: "/actes",
       meta: {
         icon: <UnorderedListOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
       },
     },
     {
-      name: "categories",
-      list: "/categories",
+      name: "formations",
+      list: "/formations",
       meta: {
         icon: <TagsOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
-        hide: !permissions?.includes(PermissionsItems.CATEGORY_READ),
       },
     },
     {
-      name: "services",
-      list: "/services",
+      name: "centres",
+      list: "/centres",
       meta: {
         icon: <ApartmentOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
-        hide: !permissions?.includes(PermissionsItems.SERVICE_READ),
       },
     },
     {
@@ -112,14 +79,11 @@ const App: React.FC = () => {
       list: "/users",
       meta: {
         icon: <UserOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
-        hide: !permissions?.includes(PermissionsItems.USER_READ),
       },
     },
-  ].filter(resource => !resource.meta.hide);
+  ];
 
-  if (loading) {
-    return <Skeleton active />;
-  }
+
 
   return (
     <BrowserRouter>
@@ -157,35 +121,10 @@ const App: React.FC = () => {
                 }
               >
                 <Route index element={<DashboardPage />} />
-                <Route
-                  path="/customers"
-                  element={
-                    <CustomerList>
-                      <Outlet />
-                    </CustomerList>
-                  }
-                >
-                  <Route path=":id" element={<CustomerShow />} />
-                </Route>
-                <Route
-                  path="/expenses"
-                  element={
-                    <ProductList>
-                      <Outlet />
-                    </ProductList>
-                  }
-                >
-                  <Route path="new" element={<ProductCreate />} />
-                  <Route path=":id" element={<ProductShow />} />
-                  <Route path=":id/edit" element={<ProductEdit />} />
-                </Route>
-                <Route path="/stores">
-                  <Route index element={<StoreList />} />
-                  <Route path="new" element={<StoreCreate />} />
-                  <Route path=":id/edit" element={<StoreEdit />} />
-                </Route>
-                <Route path="/categories" element={<CategoryList />} />
-                <Route path="/services" element={<ServiceList />} />
+
+                <Route path="/actes" element={<ActeList />} />
+                <Route path="/formations" element={<FormationList />} />
+                <Route path="/centres" element={<CentreList />} />
                 <Route path="/users" element={<UserList />} />
               </Route>
               <Route

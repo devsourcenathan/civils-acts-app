@@ -220,10 +220,11 @@ export interface ITrendingProducts {
 }
 
 export type User = {
-  name: string;
+  nom: string;
+  prenom: string;
   email: string;
-  service_id: string;
-  role: string;
-  permissions: string;
+  telephone: string;
+  fonction: string;
+  centre_id: string; 
   id: number;
 }

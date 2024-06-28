@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import { EditUser } from "./components/edit";
 import { userRoles } from "../../utils/config";
 import { EditUserPassword } from "./components/edit_password";
+import { Centre } from "../../interfaces/type";
 
 export const UserList = () => {
   const { tableProps } = useTable<User, HttpError>();
@@ -51,9 +52,9 @@ export const UserList = () => {
     setUpdatedUser(() => data)
     setOpenEditPassword(true)
   }
-  const { selectProps } = useSelect({
-    resource: 'services',
-    optionLabel: "name",
+  const { selectProps } = useSelect<Centre>({
+    resource: 'centres',
+    optionLabel: "nom",
     optionValue: 'id'
   })
 
@@ -75,8 +76,8 @@ export const UserList = () => {
             <Row gutter={24}>
               <Col span={24}>
                 <Form.Item
-                  name="name"
-                  label="Nom complet"
+                  name="nom"
+                  label="Nom"
                   rules={[{ required: true, message: 'Ce champ est requis' }]}
                 >
                   <Input placeholder="Entrer le nom" />
@@ -86,8 +87,19 @@ export const UserList = () => {
             <Row gutter={24}>
               <Col span={24}>
                 <Form.Item
-                  name="service_id"
-                  label="Service"
+                  name="prenom"
+                  label="Prenom"
+                  rules={[{ required: true, message: 'Ce champ est requis' }]}
+                >
+                  <Input placeholder="Entrer le prenom" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={24}>
+                <Form.Item
+                  name="centre_id"
+                  label="Centre"
                 >
                   <Select {...selectProps} />
                 </Form.Item>
@@ -113,6 +125,23 @@ export const UserList = () => {
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
+                  name="telephone"
+                  label="Telephone"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ce champ est requis',
+                    },
+                  ]}
+                >
+                  <Input autoComplete="off" placeholder="Saisir le numero de telephone" />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item
                   name="password"
                   label="Password"
                   rules={[
@@ -130,8 +159,8 @@ export const UserList = () => {
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
-                  name="role"
-                  label="Role"
+                  name="fonction"
+                  label="Fonction"
                   rules={[
                     {
                       required: true,
@@ -165,10 +194,17 @@ export const UserList = () => {
           }}
         >
           <Table.Column
-            key="name"
-            dataIndex="name"
+            key="nom"
+            dataIndex="nom"
             width={224}
-            title={t("Noms")}
+            title={t("Nom")}
+          />
+
+          <Table.Column
+            key="prenom"
+            dataIndex="prenom"
+            width={224}
+            title={t("Prenom")}
           />
 
           <Table.Column
@@ -179,10 +215,17 @@ export const UserList = () => {
           />
 
           <Table.Column
-            key="roles"
-            dataIndex="role"
+            key="telephone"
+            dataIndex="telephone"
             width={224}
-            title={t("Roles")}
+            title={t("Telephone")}
+          />
+
+          <Table.Column
+            key="fonction"
+            dataIndex="fonction"
+            width={224}
+            title={t("Fonction")}
           />
 
           <Table.Column
