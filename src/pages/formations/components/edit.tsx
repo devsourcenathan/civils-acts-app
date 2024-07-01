@@ -1,10 +1,9 @@
-import { Button, Col, Drawer, Form, Input, Row, Select, message } from 'antd'
+import { Button, Col, Drawer, Form, Input, Row, Select, Space, message } from 'antd'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ICategory } from '../../../interfaces'
 import { useForm } from '@refinedev/antd'
 import { useUpdate } from '@refinedev/core'
 import { API_URL } from '../../../providers'
-import { TOKEN_KEY } from '../../../providers/auth/authProvider'
 import { Formation, Registre } from '../../../interfaces/type'
 
 type EditFormationProps = {
@@ -34,10 +33,9 @@ export const EditFormation: React.FC<EditFormationProps> = ({ open, setOpen, for
 
         const response = await fetch(`${API_URL}/formations/${current?.id}`,
             {
-                method: "PATCH",
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
                 },
                 body: JSON.stringify(values)
             },
@@ -50,7 +48,7 @@ export const EditFormation: React.FC<EditFormationProps> = ({ open, setOpen, for
             form.resetFields()
             mutate(
                 {
-                    resource: "registres",
+                    resource: "formations",
                     values: {
                         libelle: res.libelle,
                     },
@@ -96,6 +94,10 @@ export const EditFormation: React.FC<EditFormationProps> = ({ open, setOpen, for
                         </Form.Item>
                     </Col>
                 </Row>
+
+                <Space>
+                    <Button type='primary' htmlType="submit">Enregistrer les modifications</Button>
+                </Space>
             </Form>
         </Drawer>
     )

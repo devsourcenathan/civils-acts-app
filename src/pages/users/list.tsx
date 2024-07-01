@@ -3,16 +3,12 @@ import { Create, EditButton, List, useForm, useSelect, useTable } from "@refined
 import { Button, Col, Drawer, Form, Input, Row, Select, Space, Table, notification } from "antd";
 import { type User } from "../../interfaces";
 import {
-  PaginationTotal,
-  CategoryStatus,
-  TableCategoryProductColumn,
+  PaginationTotal
 } from "../../components";
 import { LockOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { EditUser } from "./components/edit";
 import { userRoles } from "../../utils/config";
-import { EditUserPassword } from "./components/edit_password";
 import { Centre } from "../../interfaces/type";
 
 export const UserList = () => {
@@ -177,8 +173,8 @@ export const UserList = () => {
       </Drawer>
 
       <List headerButtons={<Button onClick={showDrawer} type="primary" iconPosition="end" icon={<PlusCircleOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />} title="Nouvel utilsateur" >Nouvel utilisateur</Button>}>
-        <EditUser open={openEdit} setOpen={setOpenEdit} user={updatedUser!} />
-        <EditUserPassword open={openEditPassword} setOpen={setOpenEditPassword} user={updatedUser!} />
+        {/* <EditUser open={openEdit} setOpen={setOpenEdit} user={updatedUser!} /> */}
+        {/* <EditUserPassword open={openEditPassword} setOpen={setOpenEditPassword} user={updatedUser!} /> */}
         <Table
           {...tableProps}
           rowKey="id"

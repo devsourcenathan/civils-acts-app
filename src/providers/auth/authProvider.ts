@@ -2,11 +2,11 @@ import { log } from 'console';
 import { AuthBindings, usePermissions } from "@refinedev/core";
 import { notification } from "antd";
 import { disableAutoLogin, enableAutoLogin } from "../../hooks";
-import { API_BASE_URL, API_URL, PERMISSION_TOKEN, ROLE_TOKEN, SERVICE_TOKEN } from ".."; 
+import { API_BASE_URL, API_URL, CV_ID_KEY, CV_ROLE_KEY,  } from ".."; 
 import { Roles } from '../../interfaces';
 
-export const TOKEN_KEY = "mk_token";
 
+ 
  
 interface UserData {
     id: string;
@@ -31,7 +31,7 @@ export const authProvider: AuthBindings = {
         }
 
  
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -42,21 +42,9 @@ export const authProvider: AuthBindings = {
         if (response.ok) {
             const data = await response.json()
 
-            localStorage.setItem(TOKEN_KEY, `${data.token}`);
-
-            const responseIdentity = await fetch(`${API_URL}/me`, {
-                headers: {
-                    'Authorization': `Bearer ${data.token}`,
-                    'Content-Type': 'application/json'
-                },
-            })
-    
-            if (responseIdentity.ok) {
-                const data: UserData = await responseIdentity.json()
-                localStorage.setItem(ROLE_TOKEN, data.role)
-                localStorage.setItem(SERVICE_TOKEN, JSON.stringify(data.service_id))
-                localStorage.setItem(PERMISSION_TOKEN, JSON.stringify(data.permissions))
-            }
+            localStorage.setItem(CV_ROLE_KEY, `${data.roles}`);
+            localStorage.setItem(CV_ID_KEY, `${data.id}`);
+ 
 
             return {
                 success: true,
@@ -117,10 +105,8 @@ export const authProvider: AuthBindings = {
     },
     logout: async () => {
         disableAutoLogin();
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(ROLE_TOKEN);
-        localStorage.removeItem(SERVICE_TOKEN);
-        localStorage.removeItem(PERMISSION_TOKEN);
+        localStorage.removeItem(CV_ID_KEY);
+        localStorage.removeItem(CV_ROLE_KEY); 
          return {
             success: true,
             redirectTo: "/login",
@@ -131,7 +117,7 @@ export const authProvider: AuthBindings = {
         return { error };
     },
     check: async () => {
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ID_KEY);
         if (token) {
             return {
                 authenticated: true,
@@ -150,37 +136,34 @@ export const authProvider: AuthBindings = {
     },
 
     getIdentity: async () => {
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ID_KEY);
         if (!token) {
             return null;
         }
 
-        const response = await fetch(`${API_URL}/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-        })
+        // const response = await fetch(`${API_URL}/me`, {
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`,
+        //         'Content-Type': 'application/json'
+        //     },
+        // })
 
-        if (response.ok) {
-            const data: UserData = await response.json()
-            localStorage.setItem(ROLE_TOKEN, data.role)
-            localStorage.setItem(SERVICE_TOKEN, JSON.stringify(data.service_id))
-            localStorage.setItem(PERMISSION_TOKEN, JSON.stringify(data.permissions))
+        // if (response.ok) {
+        //     const data: UserData = await response.json() 
 
-            console.log(data);
+        //     console.log(data);
             
-            return {
-                id: 1,
-                name: `${data.name}`,
-                avatar: "https://i.pravatar.cc/150",
-                role: data.role,
-                roles: data.roles,
-                tenantId: data.tenantId,
-                permissions: data.permissions
-            };
-        }
-        return null;
+        //     return {
+        //         id: 1,
+        //         name: `${data.name}`,
+        //         avatar: "https://i.pravatar.cc/150",
+        //         role: data.role,
+        //         roles: data.roles,
+        //         tenantId: data.tenantId,
+        //         permissions: data.permissions
+        //     };
+        // }
+        return [];
     },
 
 };

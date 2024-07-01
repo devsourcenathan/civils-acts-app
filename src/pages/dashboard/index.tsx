@@ -9,7 +9,6 @@ import {
   CardWithContent,
   TrendUpIcon,
   TrendDownIcon,
-  ProductListTable,
 } from "../../components";
 import {
   ClockCircleOutlined,
@@ -24,9 +23,8 @@ import { List, NumberField, useSelect, useTable } from "@refinedev/antd";
 import { HttpError, useApiUrl, useCustom } from "@refinedev/core";
 import dayjs from "dayjs";
 import type { ICategory, IExpense, ISalesChart, IService } from "../../interfaces";
-import { TOKEN_KEY } from "../../providers/auth/authProvider";
-import { PERMISSION_TOKEN, ROLE_TOKEN, SERVICE_TOKEN } from "../../providers";
-import { Acte, PermissionsItems } from "../../interfaces/type";
+import { Acte } from "../../interfaces/type";
+
 
 type DateFilter = "lastWeek" | "lastMonth";
 
@@ -62,7 +60,6 @@ export const DashboardPage: React.FC = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}` // Remplacez par votre token d'authentification si nécessaire
         }
       });
 

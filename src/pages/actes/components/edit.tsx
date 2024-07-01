@@ -4,7 +4,6 @@ import { ICategory } from '../../../interfaces'
 import { useForm, useSelect } from '@refinedev/antd'
 import { useUpdate } from '@refinedev/core'
 import { API_URL } from '../../../providers'
-import { TOKEN_KEY } from '../../../providers/auth/authProvider'
 import { Acte, Formation, Registre } from '../../../interfaces/type'
 
 type EditCategorieProps = {
@@ -43,7 +42,6 @@ export const EditActe: React.FC<EditCategorieProps> = ({ open, setOpen, acte }) 
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
                 },
                 body: JSON.stringify(values)
             },

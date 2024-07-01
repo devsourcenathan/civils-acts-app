@@ -1,6 +1,5 @@
 import { CrudFilter, CrudFilters, DataProvider, LogicalFilter } from "@refinedev/core";
-import { API_URL } from "..";
-import { TOKEN_KEY } from "../auth/authProvider";
+import { API_URL, CV_ROLE_KEY } from "..";
 
 
 
@@ -8,7 +7,6 @@ const fetcher = async (url: string, options?: RequestInit) => fetch(url, {
     ...options,
     headers: {
         ...options?.headers,
-        Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
         'Content-Type': 'application/json'
     },
 });
@@ -23,7 +21,7 @@ export const dataProvider: DataProvider = {
             return null
         }
 
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ROLE_KEY);
         if (!token) {
             return null;
         }
@@ -41,7 +39,7 @@ export const dataProvider: DataProvider = {
     },
     any: async ({ resource, ids, meta }) => {
 
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ROLE_KEY);
         if (!token) {
             return null;
         }
@@ -61,7 +59,7 @@ export const dataProvider: DataProvider = {
 
 
 
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ROLE_KEY);
         if (!token) {
             return null;
         }
@@ -103,7 +101,7 @@ export const dataProvider: DataProvider = {
 
     getOne: async ({ resource, id, meta }) => {
 
-        const token = localStorage.getItem(TOKEN_KEY);
+        const token = localStorage.getItem(CV_ROLE_KEY);
         if (!token) {
             return null;
         }

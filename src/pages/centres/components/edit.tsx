@@ -1,10 +1,9 @@
-import { Button, Col, Drawer, Form, Input, Row, Select, message } from 'antd'
+import { Button, Col, Drawer, Form, Input, Row, Select, Space, message } from 'antd'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ICategory } from '../../../interfaces'
 import { useForm } from '@refinedev/antd'
 import { useUpdate } from '@refinedev/core'
 import { API_URL } from '../../../providers'
-import { TOKEN_KEY } from '../../../providers/auth/authProvider'
 import { Centre } from '../../../interfaces/type'
 import { compareDepartments, departements, regionsWithDepartements } from '../../../utils/config'
 
@@ -27,7 +26,7 @@ export const EditCentre: React.FC<EditCategorieProps> = ({ open, setOpen, centre
         if (current) {
             form.setFieldsValue({
                 nom: current.nom,
-                description: current.region,
+                region: current.region,
                 departement: current.departement,
                 arrondissement: current.arrondissement,
             });
@@ -38,10 +37,9 @@ export const EditCentre: React.FC<EditCategorieProps> = ({ open, setOpen, centre
 
         const response = await fetch(`${API_URL}/centres/${current?.id}`,
             {
-                method: "PATCH",
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
                 },
                 body: JSON.stringify(values)
             },
@@ -129,6 +127,10 @@ export const EditCentre: React.FC<EditCategorieProps> = ({ open, setOpen, centre
                         </Form.Item>
                     </Col>
                 </Row>
+
+                <Space>
+                    <Button type='primary' htmlType="submit">Enregistrer les modifications</Button>
+                </Space>
             </Form>
         </Drawer>
     )

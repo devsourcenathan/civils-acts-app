@@ -142,10 +142,17 @@ export const CentreList = () => {
           }}
         >
           <Table.Column
+            key="nom"
+            dataIndex="nom"
+            width={224}
+            title={t("Nom du centre")}
+          />
+          <Table.Column
             key="region"
             dataIndex="region"
             width={224}
             title={t("Region")}
+            render={(value) => regionsWithDepartements.find(r => r.value == value)?.label}
           />
 
           <Table.Column
@@ -153,6 +160,7 @@ export const CentreList = () => {
             dataIndex="departement"
             width={224}
             title={t("Departement")}
+            render={(value, record: any) => regionsWithDepartements.find(r => r.value == record.region)?.departments.find(d => d.value == value)?.label}
           />
 
           <Table.Column

@@ -4,7 +4,6 @@ import { ICategory } from '../../../interfaces'
 import { useForm } from '@refinedev/antd'
 import { useUpdate } from '@refinedev/core'
 import { API_URL } from '../../../providers'
-import { TOKEN_KEY } from '../../../providers/auth/authProvider'
 import { Registre } from '../../../interfaces/type'
 
 type EditREgistreProps = {
@@ -37,7 +36,6 @@ export const EditRegistre: React.FC<EditREgistreProps> = ({ open, setOpen, regis
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`
                 },
                 body: JSON.stringify(values)
             },

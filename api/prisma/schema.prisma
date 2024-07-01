@@ -1,0 +1,147 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Utilisateur {
+  id        Int         @id @default(autoincrement())
+  nom       String
+  prenom    String
+  email     String      @unique
+  password  String
+  roles     String
+  telephone String
+  Registre  Registre[]
+  Mariage   Mariage[]
+  Naissance Naissance[]
+  Deces     Deces[]
+}
+
+model Registre {
+  id             Int         @id @default(autoincrement())
+  libelle        String
+  annee          String
+  idutilisateurs Int
+  utilisateur    Utilisateur @relation(fields: [idutilisateurs], references: [id])
+  Acte           Acte[]
+}
+
+model Formation {
+  id        Int         @id @default(autoincrement())
+  code      String
+  libelle   String
+  Acte      Acte[]
+  Naissance Naissance[]
+  Deces     Deces[]
+}
+
+model Centre {
+  id             Int         @id @default(autoincrement())
+  nom            String
+  region         String
+  departement    String
+  arrondissement String
+  Mariage        Mariage[]
+  Naissance      Naissance[]
+  Deces          Deces[]
+}
+
+model Acte {
+  id                    Int         @id @default(autoincrement())
+  numacte               String
+  cnipere               String
+  cnimere               String
+  cnitemoin1            String
+  cnitemoin2            String
+  dateetablissementacte DateTime
+  idregistre            Int
+  idformation           Int?
+  type                  ActeType
+  registre              Registre    @relation(fields: [idregistre], references: [id])
+  formation             Formation?  @relation(fields: [idformation], references: [id])
+  Naissance             Naissance[]
+  Deces                 Deces[]
+}
+
+enum ActeType {
+  Mariage
+  Naissance
+  Deces
+}
+
+model Mariage {
+  id                          Int         @id @default(autoincrement())
+  id_acte                     Int
+  cniepoux                    String
+  cniepouse                   String
+  nomepoux                    String
+  datenaissanceepoux          DateTime
+  lieunaissanceepoux          String
+  professionepoux             String
+  domicileepoux               String
+  nationaliteepoux            String
+  situationmatrimonialeepoux  String
+  nomepouse                   String
+  datenaissanceepouse         DateTime
+  lieunaissanceepouse         String
+  professionepouse            String
+  domicileepouse              String
+  nationaliteepouse           String
+  situationmatrimonialeepouse String
+  regimematrimonial           String
+  idcentre                    Int
+  idutilisateur               Int
+  centre                      Centre      @relation(fields: [idcentre], references: [id])
+  utilisateur                 Utilisateur @relation(fields: [idutilisateur], references: [id])
+}
+
+model Naissance {
+  id                  Int         @id @default(autoincrement())
+  id_acte             Int
+  sexe                String
+  nomenfant           String
+  datenaissanceenfant DateTime
+  lieunaissanceenfant String
+  nompere             String
+  proffessionpere     String
+  domicileparent      String
+  nomemere            String
+  proffessionmere     String
+  etatparent          String
+  idformation         Int
+  idcentre            Int
+  idutilisateurs      Int
+  acte                Acte        @relation(fields: [id_acte], references: [id])
+  formation           Formation   @relation(fields: [idformation], references: [id])
+  centre              Centre      @relation(fields: [idcentre], references: [id])
+  utilisateur         Utilisateur @relation(fields: [idutilisateurs], references: [id])
+}
+
+model Deces {
+  id                  Int         @id @default(autoincrement())
+  id_acte             Int
+  nomdeclarant        String
+  professiondeclarant String
+  domiciledeclarant   String
+  qualitedeclarant    String
+  nomdefun            String
+  datenaissance       DateTime
+  lieunaissance       String
+  profession          String
+  domiciledefun       String
+  nationalitedefun    String
+  datedeces           DateTime
+  lieudeces           String
+  circonstancesdeces  String
+  idformation         Int
+  idcentre            Int
+  idutilisateurs      Int
+  acte                Acte        @relation(fields: [id_acte], references: [id])
+  formation           Formation   @relation(fields: [idformation], references: [id])
+  centre              Centre      @relation(fields: [idcentre], references: [id])
+  utilisateur         Utilisateur @relation(fields: [idutilisateurs], references: [id])
+}
