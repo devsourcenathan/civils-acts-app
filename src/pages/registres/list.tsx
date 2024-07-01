@@ -8,7 +8,6 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { EditRegistre } from "./components/edit";
-import { PERMISSION_TOKEN } from "../../providers";
 import { Registre } from "../../interfaces/type";
 
 export const RegistreList = () => {
@@ -67,6 +66,7 @@ export const RegistreList = () => {
                 >
                   <Input placeholder="Entrer le libelle" />
                 </Form.Item>
+
               </Col>
             </Row>
             <Row gutter={16}>
@@ -113,17 +113,17 @@ export const RegistreList = () => {
           }}
         >
           <Table.Column
-            key="name"
-            dataIndex="name"
+            key="libelle"
+            dataIndex="libelle"
             width={224}
-            title={t("Registres.fields.title")}
+            title={t("Libelle")}
           />
 
           <Table.Column
-            key="description"
-            dataIndex="description"
+            key="annee"
+            dataIndex="annee"
             width={224}
-            title={t("Description")}
+            title={t("Annee")}
           />
 
           <Table.Column

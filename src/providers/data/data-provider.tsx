@@ -1,5 +1,5 @@
 import { CrudFilter, CrudFilters, DataProvider, LogicalFilter } from "@refinedev/core";
-import { API_URL, CV_ROLE_KEY } from "..";
+import { API_URL, CV_ID_KEY, CV_ROLE_KEY } from "..";
 
 
 
@@ -60,13 +60,14 @@ export const dataProvider: DataProvider = {
 
 
         const token = localStorage.getItem(CV_ROLE_KEY);
+        const ID = localStorage.getItem(CV_ID_KEY) ?? 0;
         if (!token) {
             return null;
         }
 
         const response = await fetcher(`${API_URL}/${resource}`, {
             method: "POST",
-            body: JSON.stringify(variables),
+            body: JSON.stringify({ ...variables, idutilisateurs: Number(ID) }),
             headers: {
                 "Content-Type": "application/json",
             },

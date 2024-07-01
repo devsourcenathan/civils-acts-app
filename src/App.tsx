@@ -18,6 +18,7 @@ import {
   UserOutlined,
   UnorderedListOutlined,
   TagsOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
 import "dayjs/locale/de";
 import { DashboardPage } from "./pages/dashboard";
@@ -32,6 +33,7 @@ import { UserList } from "./pages/users";
 import { ActeList } from "./pages/actes";
 import { FormationList } from "./pages/formations";
 import { CentreList } from "./pages/centres";
+import { RegistreList } from "./pages/registres";
 
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -72,6 +74,13 @@ const App: React.FC = () => {
       list: "/centres",
       meta: {
         icon: <ApartmentOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
+      },
+    },
+    {
+      name: "registres",
+      list: "/registres",
+      meta: {
+        icon: <BookOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />,
       },
     },
     {
@@ -124,6 +133,7 @@ const App: React.FC = () => {
 
                 <Route path="/actes" element={<ActeList />} />
                 <Route path="/formations" element={<FormationList />} />
+                <Route path="/registres" element={<RegistreList />} />
                 <Route path="/centres" element={<CentreList />} />
                 <Route path="/users" element={<UserList />} />
               </Route>

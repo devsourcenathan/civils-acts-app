@@ -1,4 +1,4 @@
-import { Button, Col, Drawer, Form, Input, Row, Select, message } from 'antd'
+import { Button, Col, Drawer, Form, Input, Row, Select, Space, message } from 'antd'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ICategory } from '../../../interfaces'
 import { useForm } from '@refinedev/antd'
@@ -33,7 +33,7 @@ export const EditRegistre: React.FC<EditREgistreProps> = ({ open, setOpen, regis
 
         const response = await fetch(`${API_URL}/registres/${current?.id}`,
             {
-                method: "PATCH",
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -94,6 +94,10 @@ export const EditRegistre: React.FC<EditREgistreProps> = ({ open, setOpen, regis
                         </Form.Item>
                     </Col>
                 </Row>
+
+                <Space>
+                    <Button type='primary' htmlType="submit">Enregistrer les modifications</Button>
+                </Space>
             </Form>
         </Drawer>
     )

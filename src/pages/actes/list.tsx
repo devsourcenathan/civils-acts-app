@@ -96,7 +96,7 @@ export const ActeList = () => {
           },
         }}
       >
-        {currentStep == 2 && <Create title={false} breadcrumb={false} goBack={false} saveButtonProps={saveButtonProps}>
+        {currentStep == 0 && <Create title={false} breadcrumb={false} goBack={false} saveButtonProps={saveButtonProps}>
           <Form {...formProps} layout="vertical" hideRequiredMark >
             <Row gutter={24}>
               <Col span={12}>
@@ -210,15 +210,23 @@ export const ActeList = () => {
           </Form>
         </Create>}
 
-        {currentStep == 0 && <Create title={false} breadcrumb={false} goBack={false} saveButtonProps={saveMariageProps}>
+        {currentStep == 1 && <Create title={false} breadcrumb={false} goBack={false} saveButtonProps={saveMariageProps}>
           <Form {...mariageProps} layout="vertical" hideRequiredMark >
             <Row gutter={24}>
               <Col span={24}>
-                <Form.Item
+                {/* <Form.Item
                   name="id_acte"
                   label="Num Acte"
                 >
                   <Input disabled value={createdActeNum} />
+                </Form.Item> */}
+                <Form.Item
+                  name="numacte"
+                  label="Libelle"
+                  initialValue={"ACTE-" + Math.floor(Math.random() * 1000000)}
+                // hidden
+                >
+                  <Input />
                 </Form.Item>
               </Col>
             </Row>
@@ -271,7 +279,7 @@ export const ActeList = () => {
                   label="Date Naissance Epoux"
                   rules={[{ required: true, message: 'Ce champ est requis' }]}
                 >
-                  <Input />
+                  <Input type="date" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -280,7 +288,7 @@ export const ActeList = () => {
                   label="Date Naissance Epouse"
                   rules={[{ required: true, message: 'Ce champ est requis' }]}
                 >
-                  <Input />
+                  <Input type="date" />
                 </Form.Item>
               </Col>
             </Row>

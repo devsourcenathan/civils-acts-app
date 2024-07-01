@@ -42,10 +42,11 @@ export const authProvider: AuthBindings = {
         if (response.ok) {
             const data = await response.json()
 
-            localStorage.setItem(CV_ROLE_KEY, `${data.roles}`);
-            localStorage.setItem(CV_ID_KEY, `${data.id}`);
- 
 
+
+            localStorage.setItem(CV_ROLE_KEY, `${data.data.roles}`);
+            localStorage.setItem(CV_ID_KEY, `${data.data.id}`);
+ 
             return {
                 success: true,
                 redirectTo: "/",
