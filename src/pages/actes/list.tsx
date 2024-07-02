@@ -1,6 +1,6 @@
 import { useTranslate, type HttpError } from "@refinedev/core";
 import { Create, EditButton, List, useForm, useSelect, useTable } from "@refinedev/antd";
-import { Button, Col, Drawer, Form, Input, Row, Select, Space, Table, notification } from "antd";
+import { Badge, Button, Col, Drawer, Form, Input, Row, Select, Space, Table, Tag, notification } from "antd";
 import {
   PaginationTotal,
 } from "../../components";
@@ -82,6 +82,17 @@ export const ActeList = () => {
     setOpenEdit(true)
   }
 
+  const getColor = (type: string) => {
+    if (type == "Mariage") {
+      return "blue"
+    } else if (type == "Naissance") {
+      return "green"
+    } else if (type == "Deces") {
+      return "red"
+    } else {
+      return "red"
+    }
+  }
 
   return (
     <>
@@ -103,7 +114,7 @@ export const ActeList = () => {
                 <Form.Item
                   name="numacte"
                   label="Num Acte"
-                  initialValue={getRandomIntInclusive(99999, 9999999999999)}
+                  initialValue={getRandomIntInclusive(99999, 999999999)}
                 >
                   <Input disabled />
                 </Form.Item>
@@ -459,17 +470,18 @@ export const ActeList = () => {
           }}
         >
           <Table.Column
-            key="name"
-            dataIndex="name"
+            key="numacte"
+            dataIndex="numacte"
             width={224}
-            title={t("categories.fields.title")}
+            title={t("Num Actes")}
           />
 
           <Table.Column
-            key="description"
-            dataIndex="description"
+            key="type"
+            dataIndex="type"
             width={224}
-            title={t("Description")}
+            title={t("Type")}
+            render={(value) => <Badge color={getColor(value)} count={value} />}
           />
 
           <Table.Column

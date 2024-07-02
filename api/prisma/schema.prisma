@@ -61,6 +61,8 @@ model Acte {
   idregistre            Int
   idformation           Int?
   type                  ActeType
+  status                String      @default("En attente")
+  idutilisateurs        Int
   registre              Registre    @relation(fields: [idregistre], references: [id])
   formation             Formation?  @relation(fields: [idformation], references: [id])
   Naissance             Naissance[]

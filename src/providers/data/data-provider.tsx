@@ -65,9 +65,13 @@ export const dataProvider: DataProvider = {
             return null;
         }
 
+
+        if (resource != "actes") {
+            variables = { ...variables, idutilisateurs: Number(ID) }
+        }
         const response = await fetcher(`${API_URL}/${resource}`, {
             method: "POST",
-            body: JSON.stringify({ ...variables, idutilisateurs: Number(ID) }),
+            body: JSON.stringify(variables),
             headers: {
                 "Content-Type": "application/json",
             },
