@@ -4,13 +4,13 @@ import Acte from '../../build/contracts/Acte.json';
 import prisma from '../db';
 
 const router = express.Router();
-const web3 = new Web3('http://127.0.0.1:7545');
+// const web3 = new Web3('http://127.0.0.1:7545');
 
 (async () => {
-  const networkId: "5777" = (await web3.eth.net.getId()).toString() as "5777";
-  const deployedNetwork = Acte.networks[networkId];
+  // const networkId: "5777" = (await web3.eth.net.getId()).toString() as "5777";
+  // const deployedNetwork = Acte.networks[networkId];
 
-  const contract = new web3.eth.Contract(Acte.abi, deployedNetwork.address);
+  // const contract = new web3.eth.Contract(Acte.abi, deployedNetwork.address);
 
   router.get('/', async (req, res) => {
     try {
@@ -53,14 +53,14 @@ const web3 = new Web3('http://127.0.0.1:7545');
           throw new Error("Type invalide");
       }
   
-      const accounts = await web3.eth.getAccounts();
-      await contract.methods.createActe(numacte,cnipere,cnimere,cnitemoin1,cnitemoin2, dateetablissementacte,idregistre,
-        idformation,
-        typeValue
-      ).send({ from: accounts[0] });
+      // const accounts = await web3.eth.getAccounts();
+      // await contract.methods.createActe(numacte,cnipere,cnimere,cnitemoin1,cnitemoin2, dateetablissementacte,idregistre,
+      //   idformation,
+      //   typeValue
+      // ).send({ from: accounts[0] });
   
       const acte = await prisma.acte.create({
-        data: req.body,
+        data: {...req.body, dateetablissementacte: new Date(req.body.dateetablissementacte)},
       });
       res.status(201).json(acte);
     } catch (error) {
@@ -72,9 +72,9 @@ const web3 = new Web3('http://127.0.0.1:7545');
   router.put('/:id', async (req, res) => {
     try {
       const { status } = req.body;
-      const accounts = await web3.eth.getAccounts();
-      await contract.methods.updateStatus(parseInt(req.params.id), status)
-        .send({ from: accounts[0] });
+      // const accounts = await web3.eth.getAccounts();
+      // await contract.methods.updateStatus(parseInt(req.params.id), status)
+      //   .send({ from: accounts[0] });
 
       const acte = await prisma.acte.update({
         where: { id: parseInt(req.params.id) },

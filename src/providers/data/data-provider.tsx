@@ -66,8 +66,12 @@ export const dataProvider: DataProvider = {
         }
 
 
-        if (resource != "actes") {
+        if (resource == "registres" || resource == "deces" || resource == "naissance" || "actes") {
             variables = { ...variables, idutilisateurs: Number(ID) }
+        }
+
+        if (resource == "mariage") {
+            variables = { ...variables, idutilisateur: Number(ID) }
         }
         const response = await fetcher(`${API_URL}/${resource}`, {
             method: "POST",

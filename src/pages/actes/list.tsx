@@ -1,5 +1,5 @@
 import { useTranslate, type HttpError } from "@refinedev/core";
-import { Create, EditButton, List, useForm, useSelect, useTable } from "@refinedev/antd";
+import { Create, EditButton, List, ShowButton, useForm, useSelect, useTable } from "@refinedev/antd";
 import { Badge, Button, Col, Drawer, Form, Input, Row, Select, Space, Table, Tag, notification } from "antd";
 import {
   PaginationTotal,
@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { EditActe } from "./components/edit";
 import { Acte, Centre, Formation, Mariage, Registre } from "../../interfaces/type";
 import { getRandomIntInclusive } from "../../utils/config";
+import { useNavigate } from "react-router-dom";
 
 export const ActeList = () => {
   const { tableProps } = useTable<Acte, HttpError>();
@@ -17,12 +18,29 @@ export const ActeList = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [createdActeId, setCreatedActeId] = useState(0)
   const [createdActeNum, setCreatedActeNum] = useState("")
+
+  const { formProps: mariageProps, saveButtonProps: saveMariageProps } = useForm<Mariage>({
+    resource: "mariages",
+
+    onMutationSuccess: ({ data }) => {
+      notification.success({ message: "L'acte a été sauvegardé" })
+      setCurrentStep(0)
+      formProps.form?.resetFields()
+      onClose()
+    },
+
+    onMutationError: () => {
+      notification.error({ message: "Une erreur s'est produite" })
+    }
+  });
+
   const { formProps, saveButtonProps } = useForm<Acte>({
 
     onMutationSuccess: ({ data }) => {
       notification.success({ message: "L'acte a été ajouté" })
       setCurrentStep(1)
       setCreatedActeId(data.id)
+
       setCreatedActeNum(data.numacte)
       serCurrentType(formProps.form?.getFieldValue("type"))
       // formProps.form?.resetFields()
@@ -33,19 +51,8 @@ export const ActeList = () => {
     }
   });
 
-  const { formProps: mariageProps, saveButtonProps: saveMariageProps } = useForm<Mariage>({
 
-    onMutationSuccess: ({ data }) => {
-      notification.success({ message: "L'acte a été sauvegardé" })
-      setCurrentStep(0)
-      setCreatedActeId(0)
-      formProps.form?.resetFields()
-    },
 
-    onMutationError: () => {
-      notification.error({ message: "Une erreur s'est produite" })
-    }
-  });
 
   const t = useTranslate();
 
@@ -81,6 +88,8 @@ export const ActeList = () => {
     setUpdatedActe(() => data)
     setOpenEdit(true)
   }
+
+  const navigate = useNavigate()
 
   const getColor = (type: string) => {
     if (type == "Mariage") {
@@ -225,19 +234,13 @@ export const ActeList = () => {
           <Form {...mariageProps} layout="vertical" hideRequiredMark >
             <Row gutter={24}>
               <Col span={24}>
-                {/* <Form.Item
+                <Form.Item
                   name="id_acte"
                   label="Num Acte"
+                  initialValue={createdActeId}
+                  hidden
                 >
-                  <Input disabled value={createdActeNum} />
-                </Form.Item> */}
-                <Form.Item
-                  name="numacte"
-                  label="Libelle"
-                  initialValue={"ACTE-" + Math.floor(Math.random() * 1000000)}
-                // hidden
-                >
-                  <Input />
+                  <Input value={createdActeId} />
                 </Form.Item>
               </Col>
             </Row>
@@ -494,7 +497,13 @@ export const ActeList = () => {
 
           <Table.Column
             key="actions"
-            render={(_, data: Acte) => <EditButton onClick={() => handleUpdate(data)} />}
+            render={(_, data: Acte) => <Space>
+              {/* <EditButton onClick={() => handleUpdate(data)} /> */}
+              <ShowButton onClick={() => {
+                navigate(`/actes/${data.id}`)
+              }} />
+            </Space>
+            }
           />
 
         </Table>

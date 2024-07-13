@@ -34,6 +34,7 @@ import { ActeList } from "./pages/actes";
 import { FormationList } from "./pages/formations";
 import { CentreList } from "./pages/centres";
 import { RegistreList } from "./pages/registres";
+import { MarriageShow } from "./pages/actes/components/show";
 
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -134,6 +135,8 @@ const App: React.FC = () => {
                 <Route path="/actes" element={<ActeList />} />
                 <Route path="/formations" element={<FormationList />} />
                 <Route path="/registres" element={<RegistreList />} />
+                <Route path="/actes/:id" element={<MarriageShow />} />
+
                 <Route path="/centres" element={<CentreList />} />
                 <Route path="/users" element={<UserList />} />
               </Route>

@@ -76,7 +76,7 @@ enum ActeType {
 }
 
 model Mariage {
-  id                          Int         @id @default(autoincrement())
+  id                          Int          @id @default(autoincrement())
   id_acte                     Int
   cniepoux                    String
   cniepouse                   String
@@ -97,8 +97,8 @@ model Mariage {
   regimematrimonial           String
   idcentre                    Int
   idutilisateur               Int
-  centre                      Centre      @relation(fields: [idcentre], references: [id])
-  utilisateur                 Utilisateur @relation(fields: [idutilisateur], references: [id])
+  centre                      Centre?      @relation(fields: [idcentre], references: [id])
+  utilisateur                 Utilisateur? @relation(fields: [idutilisateur], references: [id])
 }
 
 model Naissance {

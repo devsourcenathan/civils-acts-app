@@ -8,6 +8,8 @@ export interface Acte {
     dateetablissementacte: string;
     idregistre: number;
     idformation: number | undefined;
+    idutilisateurs: number;
+    status: string;
     type: "Mariage" | "Naissance" | "Deces";
   }
   

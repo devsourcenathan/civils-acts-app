@@ -26,9 +26,15 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try{
-  const newmariage = req.body;
+    const { idcentre, idutilisateurs, ...newmariage } = req.body;
   const mariage = await prisma.mariage.create({
-    data: newmariage,
+    data: {
+      ...newmariage, 
+      datenaissanceepoux: new Date(newmariage.datenaissanceepoux),
+      datenaissanceepouse: new Date(newmariage.datenaissanceepouse),
+      centre: {connect: {id: idcentre}},
+      utilisateur: {connect: {id: idutilisateurs}}
+    },
   });
   res.status(201).json(mariage);
 } catch (error) {
